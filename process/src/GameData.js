@@ -170,14 +170,15 @@ class GameData {
     return {
       ids: objects.map(o => o.id),
       names: objects.map(o => o.name),
-      difficulties: objects.map(o => o.difficulty()),
-      filters: ObjectFilters.jsonData(objects),
-      badges: ObjectBadges.jsonData(objects),
+      bounds: objects.map(o => o.bounds),
+      //difficulties: objects.map(o => o.difficulty()),
+      //filters: ObjectFilters.jsonData(objects),
+      //badges: ObjectBadges.jsonData(objects),
       date: new Date(),
-      versions: this.changeLog.validVersions().map(v => v.id),
+      //versions: this.changeLog.validVersions().map(v => v.id),
       biomeIds: this.biomes.map(b => b.id),
       biomeNames: this.biomes.map(b => b.name()),
-      foodBonus: parseInt(process.env.ONETECH_FOOD_BONUS),
+      //foodBonus: parseInt(process.env.ONETECH_FOOD_BONUS),
     };
   }
 

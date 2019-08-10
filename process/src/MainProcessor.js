@@ -42,19 +42,19 @@ class MainProcessor {
     console.log("Importing objects...");
     gameData.importObjects();
     gameData.importCategories();
-    gameData.importTransitions();
+    //gameData.importTransitions();
     gameData.importBiomes();
 
     console.log("Populating versions...");
-    gameData.populateVersions();
+    //gameData.populateVersions();
 
     console.log("Calculating object depth...");
-    gameData.calculateObjectDepth();
+    //gameData.calculateObjectDepth();
 
     if (this.doSprites) {
       console.log("Converting sprite images...");
-      gameData.convertSpriteImages();
-      gameData.convertGroundImages();
+      //gameData.convertSpriteImages();
+      //gameData.convertGroundImages();
 
       console.log("Processing sprites...");
       gameData.processSprites();
@@ -69,7 +69,7 @@ class MainProcessor {
     gameData.exportObjects();
 
     console.log("Exporting versions...");
-    gameData.exportVersions();
+    //gameData.exportVersions();
 
     console.log("Exporting biomes...");
     gameData.exportBiomes();

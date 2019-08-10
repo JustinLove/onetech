@@ -19,6 +19,8 @@ class SpriteProcessor {
 
   processObject(object) {
     this.renderSprites(this.visibleSprites(object), object.id);
+    var bounds = this.spritesBounds(this.visibleSprites(object));
+    object.bounds = [bounds.minX, bounds.minY, bounds.maxX, bounds.maxY];
 
     // Draw only the last sprite
     if (object.data.numUses > 1) {

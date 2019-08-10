@@ -12,6 +12,7 @@ class GameObject {
     this.transitionsAway = [];
     this.categories = [];
     this.biomes = [];
+    this.bounds = [];
     this.depth = new Depth({});
     this.parseData(dataText);
     if (!this.data.id)
