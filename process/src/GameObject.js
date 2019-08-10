@@ -211,6 +211,17 @@ class GameObject {
     return Number.parseFloat(this.depth.difficulty).toPrecision(3);
   }
 
+  isFloor() {
+    return this.data.floor == 1;
+  }
+
+  floorRemovalTransitions() {
+    if (!this.isFloor()) return [];
+    return this.transitionsAway.filter(function(transition) {
+      return !transition.newTarget.isFloor();
+    })
+  }
+
   isTool() {
     for (var transition of this.transitionsAway) {
       if (transition.actor == this && transition.target && transition.tool) return true;

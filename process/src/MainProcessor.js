@@ -42,11 +42,11 @@ class MainProcessor {
     console.log("Importing objects...");
     gameData.importObjects();
     gameData.importCategories();
-    //gameData.importTransitions();
+    gameData.importTransitions();
     gameData.importBiomes();
 
     console.log("Populating versions...");
-    //gameData.populateVersions();
+    gameData.populateVersions();
 
     console.log("Calculating object depth...");
     //gameData.calculateObjectDepth();
