@@ -22,7 +22,7 @@ class GameObject {
   }
 
   parseData(dataText) {
-    const lines = dataText.split('\n');
+    const lines = dataText.split(/[\r\n]+/);
     for (var i = 0; i < lines.length; i++) {
       if (i == 1) {
         this.parseName(lines[i]);
