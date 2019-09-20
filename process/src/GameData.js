@@ -177,8 +177,9 @@ class GameData {
       //badges: ObjectBadges.jsonData(objects),
       date: new Date(),
       //versions: this.changeLog.validVersions().map(v => v.id),
-      biomeIds: this.biomes.map(b => b.id),
-      biomeNames: this.biomes.map(b => b.name()),
+      biomes: this.biomes.map(b => b.jsonData()),
+      //biomeIds: this.biomes.map(b => b.id),
+      //biomeNames: this.biomes.map(b => b.name()),
       //foodBonus: parseInt(process.env.ONETECH_FOOD_BONUS),
     };
   }

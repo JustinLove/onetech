@@ -50,9 +50,14 @@ class Biome {
       id: this.id,
       groundHeat: this.groundHeat,
       name: this.name(),
+      totalMapChance: this.totalMapChance(),
     };
     result.objects = this.objects.map(object => {
-      return {id: object.id, spawnChance: this.spawnChance(object)};
+      return {
+        id: object.id,
+        mapChance: object.data.mapChance,
+        moving: !!object.canMove(),
+      }
     });
     return result;
   }
