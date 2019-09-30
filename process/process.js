@@ -13,10 +13,8 @@ processor.doDownload = process.argv.includes('download');
 console.log("--- Processing static-edge ---");
 const unprocessedVersion = processor.process(null);
 
-/*
 if (unprocessedVersion) {
   processor.doDownload = false;
   console.log(`--- Processing static for v${unprocessedVersion.id} ---`);
   processor.process(unprocessedVersion);
 }
-*/

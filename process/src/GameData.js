@@ -134,6 +134,21 @@ class GameData {
     }
   }
 
+  importSpawnChanges() {
+    const versions = this.changeLog.versions.slice();
+    this.spawnChanges = []
+    for (let version of versions) {
+      const path = `versions/${version.id}.json`;
+      if (fs.existsSync(this.staticDir + "/" + path)) {
+        let version = this.loadJSON(path);
+        if (version.spawnChanges.length > 0) {
+          version.spawnChanges.forEach(c => delete c.name);
+          this.spawnChanges.push(version);
+        }
+      }
+    }
+  }
+
   exportBiomes() {
     for (let biome of this.biomes) {
       this.saveJSON(`biomes/${biome.id}.json`, biome.jsonData());
@@ -165,7 +180,13 @@ class GameData {
     fs.writeFileSync(prettyPath, JSON.stringify(data, null, 2));
   }
 
+  loadJSON(path) {
+    const minPath = this.staticDir + "/" + path;
+    return JSON.parse(fs.readFileSync(minPath));
+  }
+
   objectsData() {
+    this.importSpawnChanges();
     var objects = _.sortBy(this.objects, o => o.sortWeight()).filter(o => o.isVisible());
     return {
       ids: objects.map(o => o.id),
@@ -177,8 +198,9 @@ class GameData {
       //badges: ObjectBadges.jsonData(objects),
       date: new Date(),
       //versions: this.changeLog.validVersions().map(v => v.id),
-      biomes: this.biomes.map(b => b.jsonData()),
-      //spawns: this.changeLog.validVersions().reverse().slice(0, 10).map(v => v.jsonData()).filter(v => v.spawnChanges.length > 0),
+      //biomes: this.biomes.map(b => b.jsonData()),
+      //spawnChanges: this.changeLog.validVersions().reverse().slice(0, 10).map(v => v.jsonData()).filter(v => v.spawnChanges.length > 0),
+      spawnChanges: this.spawnChanges,
       //biomeIds: this.biomes.map(b => b.id),
       //biomeNames: this.biomes.map(b => b.name()),
       //foodBonus: parseInt(process.env.ONETECH_FOOD_BONUS),

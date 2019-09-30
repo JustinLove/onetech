@@ -52,6 +52,7 @@ class Biome {
       name: this.name(),
       totalMapChance: this.totalMapChance(),
     };
+    /*
     result.objects = this.objects.map(object => {
       return {
         id: object.id,
@@ -59,6 +60,7 @@ class Biome {
         moving: !!object.canMove(),
       }
     });
+    */
     return result;
   }
 }
