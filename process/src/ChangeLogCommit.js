@@ -87,12 +87,6 @@ class ChangeLogCommit {
   lookupObject(path, mode) {
     const id = path.split("/")[1].split(".")[0];
 
-    if (this.objects[id]) {
-      if (!this.objects[id].isVisible())
-        this.legacyObjects[id] = this.objects[id];
-      return this.objects[id];
-    }
-
     if (this.legacyObjects[id])
       return this.legacyObjects[id];
 
@@ -162,7 +156,7 @@ class ChangeLogCommit {
     }
     if (Object.keys(attributes).length == 0)
       return;
-    return {id: after.id, attributes: attributes};
+    return {id: after.id, attributes: attributes, after: after};
   }
 
   fileContent(path, mode) {
@@ -193,6 +187,22 @@ class ChangeLogCommit {
 
     return data;
   }
+
+  spawnChanges() {
+    let data = []
+
+    if (this.addedObjects.length)
+      data.push(this.addedObjects.filter(o => o.isNatural()).map(o => o.spawnData()));
+
+    if (this.removedObjects.length)
+      data.push(this.removedObjects.filter(o => o.isNatural()).map(o => ({id: o.id, removed: true})));
+
+    if (this.objectChanges.length)
+      data.push(this.objectChanges.filter(c => c.attributes.mapChance || c.attributes.biomes).map(o => o.after.spawnData()));
+
+    return [].concat.apply([], data);
+  }
+
 
   filterTransitions(transitions) {
     let ids = this.addedObjects.map(o => o.id);

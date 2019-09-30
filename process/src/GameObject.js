@@ -189,6 +189,21 @@ class GameObject {
     });
   }
 
+  spawnData() {
+    let data = {
+      id: this.id,
+      name: this.name,
+      mapChance: this.data.mapChance,
+    }
+    if (this.canMove()) {
+      data.moving = true;
+    }
+    if (this.data.biomes.length > 0) {
+      data.biomes = this.data.biomes
+    }
+    return data;
+  }
+
   canPickup() {
     return this.data.permanent == 0 && this.data.floor == 0;
   }

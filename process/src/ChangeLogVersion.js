@@ -41,12 +41,17 @@ class ChangeLogVersion {
   }
 
   jsonData() {
+    console.log(this.id);
     const data = {id: this.id};
     const commits = this.fetchCommits();
     if (this.isReleased() && commits[0]) {
       data.date = commits[0].date;
     }
-    data.commits = commits.filter(c => c.isRelavent()).map(c => c.jsonData());
+    //data.commits = commits.filter(c => c.isRelavent()).map(c => c.jsonData());
+    const spawnChanges = [].concat.apply([], commits.filter(c => c.isRelavent()).map(c => c.spawnChanges()));
+    let objects = {};
+    spawnChanges.forEach(o => objects[o.id] = objects[o.id] || o)
+    data.spawnChanges = Object.values(objects)
     return data;
   }
 

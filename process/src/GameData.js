@@ -10,7 +10,7 @@ const TransitionImporter = require('./TransitionImporter');
 const ChangeLog = require('./ChangeLog');
 const Biome = require('./Biome');
 const DepthCalculator = require('./DepthCalculator');
-const SpriteProcessor = require('./SpriteProcessor');
+//const SpriteProcessor = require('./SpriteProcessor');
 const ObjectFilters = require('./ObjectFilters');
 const ObjectBadges = require('./ObjectBadges');
 const SitemapGenerator = require('./SitemapGenerator');
@@ -170,7 +170,7 @@ class GameData {
     return {
       ids: objects.map(o => o.id),
       names: objects.map(o => o.name),
-      bounds: objects.map(o => o.bounds),
+      //bounds: objects.map(o => o.bounds),
       floorRemovals: _.flatten(objects.map(o => o.floorRemovalTransitions())).map(t => t.jsonData()),
       //difficulties: objects.map(o => o.difficulty()),
       //filters: ObjectFilters.jsonData(objects),
@@ -178,6 +178,7 @@ class GameData {
       date: new Date(),
       //versions: this.changeLog.validVersions().map(v => v.id),
       biomes: this.biomes.map(b => b.jsonData()),
+      //spawns: this.changeLog.validVersions().reverse().slice(0, 10).map(v => v.jsonData()).filter(v => v.spawnChanges.length > 0),
       //biomeIds: this.biomes.map(b => b.id),
       //biomeNames: this.biomes.map(b => b.name()),
       //foodBonus: parseInt(process.env.ONETECH_FOOD_BONUS),

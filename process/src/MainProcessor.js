@@ -48,16 +48,16 @@ class MainProcessor {
     console.log("Populating versions...");
     gameData.populateVersions();
 
-    console.log("Calculating object depth...");
+    //console.log("Calculating object depth...");
     //gameData.calculateObjectDepth();
 
     if (this.doSprites) {
-      console.log("Converting sprite images...");
+      //console.log("Converting sprite images...");
       //gameData.convertSpriteImages();
       //gameData.convertGroundImages();
 
-      console.log("Processing sprites...");
-      gameData.processSprites();
+      //console.log("Processing sprites...");
+      //gameData.processSprites();
     }
 
     if (this.doSounds) {
@@ -65,11 +65,11 @@ class MainProcessor {
       gameData.convertSounds();
     }
 
+    console.log("Exporting versions...");
+    gameData.exportVersions();
+
     console.log("Exporting objects...");
     gameData.exportObjects();
-
-    console.log("Exporting versions...");
-    //gameData.exportVersions();
 
     console.log("Exporting biomes...");
     gameData.exportBiomes();
