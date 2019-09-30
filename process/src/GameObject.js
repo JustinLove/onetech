@@ -201,6 +201,12 @@ class GameObject {
     if (this.data.biomes.length > 0) {
       data.biomes = this.data.biomes
     }
+    if (this.data.leftBlockingRadius > 0) {
+      data.leftBlockingRadius = this.data.leftBlockingRadius;
+    }
+    if (this.data.rightBlockingRadius > 0) {
+      data.rightBlockingRadius = this.data.rightBlockingRadius;
+    }
     return data;
   }
 
