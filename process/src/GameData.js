@@ -190,7 +190,7 @@ class GameData {
     return {
       ids: objects.map(o => o.id),
       names: objects.map(o => o.name),
-      //bounds: objects.map(o => o.bounds),
+      bounds: objects.map(o => o.bounds),
       floorRemovals: _.flatten(objects.map(o => o.floorRemovalTransitions())).map(t => t.jsonData()),
       //difficulties: objects.map(o => o.difficulty()),
       //filters: ObjectFilters.jsonData(objects),
