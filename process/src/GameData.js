@@ -10,7 +10,9 @@ const TransitionImporter = require('./TransitionImporter');
 const ChangeLog = require('./ChangeLog');
 const Biome = require('./Biome');
 const DepthCalculator = require('./DepthCalculator');
-const SpriteProcessor = require('./SpriteProcessor');
+if (process.argv.includes('sprites')) {
+  const SpriteProcessor = require('./SpriteProcessor');
+}
 const ObjectFilters = require('./ObjectFilters');
 const ObjectBadges = require('./ObjectBadges');
 const SitemapGenerator = require('./SitemapGenerator');
