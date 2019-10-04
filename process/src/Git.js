@@ -27,7 +27,7 @@ class Git {
   }
 
   fileChanges(from, to) {
-    return this.runLines("diff", "--name-status", `${from}..${to}`).map(line => line.split(/\s+/));
+    return this.runLines("diff", "--name-status", "--no-renames", `${from}..${to}`).map(line => line.split(/\s+/));
   }
 
   fileContent(sha, path) {
