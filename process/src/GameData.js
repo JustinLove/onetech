@@ -10,7 +10,7 @@ const TransitionImporter = require('./TransitionImporter');
 const ChangeLog = require('./ChangeLog');
 const Biome = require('./Biome');
 const DepthCalculator = require('./DepthCalculator');
-//const SpriteProcessor = require('./SpriteProcessor');
+const SpriteProcessor = require('./SpriteProcessor');
 const ObjectFilters = require('./ObjectFilters');
 const ObjectBadges = require('./ObjectBadges');
 const SitemapGenerator = require('./SitemapGenerator');
@@ -117,7 +117,6 @@ class GameData {
   }
 
   exportObjects() {
-    this.prepareStaticDir();
     this.saveJSON("objects.json", this.objectsData());
     for (let id in this.objects) {
       this.saveJSON(`objects/${id}.json`, this.objects[id].jsonData());
@@ -127,7 +126,7 @@ class GameData {
   exportVersions() {
     const versions = this.changeLog.versions.slice().reverse();
     for (let version of versions) {
-      const path = `versions/${version.id}.json`;
+      const path = `spawns/${version.id}.json`;
       if (version.isUnreleased() || version.id > 0 && !fs.existsSync(this.staticDir + "/" + path)) {
         this.saveJSON(path, version.jsonData());
       }
@@ -138,7 +137,7 @@ class GameData {
     const versions = this.changeLog.versions.slice();
     this.spawnChanges = []
     for (let version of versions) {
-      const path = `versions/${version.id}.json`;
+      const path = `spawns/${version.id}.json`;
       if (fs.existsSync(this.staticDir + "/" + path)) {
         let version = this.loadJSON(path);
         if (version.spawnChanges.length > 0) {
@@ -160,12 +159,12 @@ class GameData {
     this.makeDir(this.staticDir + "/sprites");
     this.makeDir(this.staticDir + "/ground");
     this.makeDir(this.staticDir + "/objects");
-    this.makeDir(this.staticDir + "/versions");
+    this.makeDir(this.staticDir + "/spawns");
     this.makeDir(this.staticDir + "/biomes");
     this.makeDir(this.staticDir + "/sounds");
     this.makeDir(this.staticDir + "/pretty-json");
     this.makeDir(this.staticDir + "/pretty-json/objects");
-    this.makeDir(this.staticDir + "/pretty-json/versions");
+    this.makeDir(this.staticDir + "/pretty-json/spawns");
     this.makeDir(this.staticDir + "/pretty-json/biomes");
   }
 
@@ -271,7 +270,7 @@ class GameData {
 
   unprocessedVersion(staticDir, force) {
     const version = this.changeLog.lastReleasedVersion();
-    const path = `versions/${version.id}.json`;
+    const path = `spawns/${version.id}.json`;
     if (force || !fs.existsSync(staticDir + "/" + path)) {
       return version;
     }

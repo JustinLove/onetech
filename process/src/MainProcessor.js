@@ -52,18 +52,20 @@ class MainProcessor {
     //gameData.calculateObjectDepth();
 
     if (this.doSprites) {
-      //console.log("Converting sprite images...");
-      //gameData.convertSpriteImages();
-      //gameData.convertGroundImages();
+      console.log("Converting sprite images...");
+      gameData.convertSpriteImages();
+      gameData.convertGroundImages();
 
-      //console.log("Processing sprites...");
-      //gameData.processSprites();
+      console.log("Processing sprites...");
+      gameData.processSprites();
     }
 
     if (this.doSounds) {
       console.log("Converting sound files...");
       gameData.convertSounds();
     }
+
+    gameData.prepareStaticDir();
 
     console.log("Exporting versions...");
     gameData.exportVersions();

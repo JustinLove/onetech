@@ -7,7 +7,7 @@ const MainProcessor = require('./src/MainProcessor');
 const processor = new MainProcessor(__dirname);
 
 processor.doDownload = process.argv.includes('download');
-//processor.doSprites = processor.doDownload || process.argv.includes('sprites');
+processor.doSprites = processor.doDownload || process.argv.includes('sprites');
 //processor.doSounds = processor.doDownload || process.argv.includes('sounds');
 
 console.log("--- Processing static-edge ---");
