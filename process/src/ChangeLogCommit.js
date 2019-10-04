@@ -93,6 +93,10 @@ class ChangeLogCommit {
     const data = this.fileContent(path, mode);
 
     const object = new GameObject(data);
+    if (this.objects[id]) {
+      object.transitionsToward = this.objects[id].transitionsToward;
+      object.transitionsAway = this.objects[id].transitionsAway;
+    }
     object.legacy = true;
     this.legacyObjects[id] = object;
 
