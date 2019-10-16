@@ -202,7 +202,7 @@ class ChangeLogCommit {
       data.push(this.removedObjects.filter(o => o.isNatural()).map(o => ({id: o.id, removed: true})));
 
     if (this.objectChanges.length)
-      data.push(this.objectChanges.filter(c => c.attributes.mapChance || c.attributes.biomes).map(o => o.after.spawnData()));
+      data.push(this.objectChanges.filter(c => c.attributes.mapChance || c.attributes.biomes || c.attributes.gridPlacement || c.attributes.randPlacement).map(o => o.after.spawnData()));
 
     return [].concat.apply([], data);
   }

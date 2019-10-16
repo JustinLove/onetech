@@ -36,8 +36,20 @@ class GameObject {
   }
 
   parseName(name) {
-    if (name)
-      this.data.name = name.replace('#', ' - ');
+    if (name) {
+      this.data.name = name;//.replace('#', ' - ');
+      var parts = name.split(/# ?/);
+      var extra = parts[1];
+      if (!extra) return;
+      var grid = extra.match(/gridPlacement(\d+)/);
+      var rand = extra.match(/randPlacement(\d+)/);
+      if (grid) {
+        this.data.gridPlacement = parseInt(grid[1])
+      }
+      if (rand) {
+        this.data.randPlacement = parseInt(rand[1])
+      }
+    }
   }
 
   parseLine(line) {
@@ -206,6 +218,12 @@ class GameObject {
     }
     if (this.data.rightBlockingRadius > 0) {
       data.rightBlockingRadius = this.data.rightBlockingRadius;
+    }
+    if (this.data.gridPlacement) {
+      data.gridPlacement = this.data.gridPlacement;
+    }
+    if (this.data.randPlacement) {
+      data.randPlacement = this.data.randPlacement;
     }
     return data;
   }
