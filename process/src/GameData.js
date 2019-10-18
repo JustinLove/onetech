@@ -140,6 +140,7 @@ class GameData {
       const path = `spawns/${version.id}.json`;
       if (fs.existsSync(this.staticDir + "/" + path)) {
         let version = this.loadJSON(path);
+        version.date = Date.parse(version.date);
         if (version.spawnChanges.length > 0) {
           version.spawnChanges.forEach(c => delete c.name);
           this.spawnChanges.push(version);
@@ -195,7 +196,7 @@ class GameData {
       //difficulties: objects.map(o => o.difficulty()),
       //filters: ObjectFilters.jsonData(objects),
       //badges: ObjectBadges.jsonData(objects),
-      date: new Date(),
+      date: Date.now(),
       //versions: this.changeLog.validVersions().map(v => v.id),
       //biomes: this.biomes.map(b => b.jsonData()),
       //spawnChanges: this.changeLog.validVersions().reverse().slice(0, 10).map(v => v.jsonData()).filter(v => v.spawnChanges.length > 0),
