@@ -38,6 +38,8 @@ class GameObject {
   parseName(name) {
     if (name) {
       this.data.name = name;//.replace('#', ' - ');
+      this.data.gridPlacement = null;
+      this.data.randPlacement = null;
       var parts = name.split(/# ?/);
       var extra = parts[1];
       if (!extra) return;
