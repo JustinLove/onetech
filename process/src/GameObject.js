@@ -39,14 +39,20 @@ class GameObject {
     if (name) {
       this.data.name = name;//.replace('#', ' - ');
       this.data.gridPlacement = null;
+      this.data.gridPlacementY = null;
+      this.data.gridPlacementPhaseX = null;
+      this.data.gridPlacementPhaseY = null;
       this.data.randPlacement = null;
       var parts = name.split(/# ?/);
       var extra = parts[1];
       if (!extra) return;
-      var grid = extra.match(/gridPlacement(\d+)/);
+      var grid = extra.match(/gridPlacement(\d+)(,(\d+))?(,p(\d+))?(,p(\d+))?/);
       var rand = extra.match(/randPlacement(\d+)/);
       if (grid) {
         this.data.gridPlacement = parseInt(grid[1])
+        this.data.gridPlacementY = grid[3] && parseInt(grid[3])
+        this.data.gridPlacementPhaseX = grid[5] && parseInt(grid[5])
+        this.data.gridPlacementPhaseY = grid[7] && parseInt(grid[7])
       }
       if (rand) {
         this.data.randPlacement = parseInt(rand[1])
@@ -223,6 +229,15 @@ class GameObject {
     }
     if (this.data.gridPlacement) {
       data.gridPlacement = this.data.gridPlacement;
+    }
+    if (this.data.gridPlacementY) {
+      data.gridPlacementY = this.data.gridPlacementY;
+    }
+    if (this.data.gridPlacementPhaseX) {
+      data.gridPlacementPhaseX = this.data.gridPlacementPhaseX;
+    }
+    if (this.data.gridPlacementPhaseY) {
+      data.gridPlacementPhaseY = this.data.gridPlacementPhaseY;
     }
     if (this.data.randPlacement) {
       data.randPlacement = this.data.randPlacement;
