@@ -21,6 +21,10 @@ class GameObject {
     this.name = this.data.name;
   }
 
+  debugName() {
+    return `${this.id} ${this.name}`;
+  }
+
   parseData(dataText) {
     const lines = dataText.split(/[\r\n]+/);
     for (var i = 0; i < lines.length; i++) {
@@ -279,10 +283,7 @@ class GameObject {
   }
 
   isTool() {
-    for (var transition of this.transitionsAway) {
-      if (transition.actor == this && transition.target && transition.tool) return true;
-    }
-    return false;
+    return this.name.includes("+tool");
   }
 
   isCraftableContainer() {
