@@ -119,9 +119,11 @@ class GameData {
 
   exportObjects() {
     this.saveJSON("objects.json", this.objectsData());
+    /*
     for (let id in this.objects) {
       this.saveJSON(`objects/${id}.json`, this.objects[id].jsonData());
     }
+    */
   }
 
   exportVersions() {

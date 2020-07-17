@@ -73,8 +73,8 @@ class MainProcessor {
     console.log("Exporting objects...");
     gameData.exportObjects();
 
-    console.log("Exporting biomes...");
-    gameData.exportBiomes();
+    //console.log("Exporting biomes...");
+    //gameData.exportBiomes();
 
     if (version) {
       console.log("Generating sitemap...");
