@@ -215,7 +215,11 @@ class GameData {
         const id = filename.split('.')[0];
         const inPath = dir + "/" + filename;
         const outPath = this.staticDir + "/sprites/sprite_" + id + ".png";
-        spawnSync("convert", [inPath, outPath]);
+        const result = spawnSync("convert", [inPath, outPath]);
+        if (result.error || result.status !== 0) {
+          console.error("imagemagick sprite conversion failed", result)
+          throw "sprite conversion failed";
+        }
       }
     }
   }
