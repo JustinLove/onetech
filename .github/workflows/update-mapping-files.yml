@@ -23,7 +23,7 @@ jobs:
       env:
         cache-name: cache-node-modules
       with:
-        path: node_modules
+        path: process/node_modules
         key: processor-node_modules-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           processor-node_modules-${{ hashFiles('**/package-lock.json') }}
@@ -32,9 +32,9 @@ jobs:
       run: npm install
     - name: Make Directories
       run: mkdir -p ../public/static/sprites && mkdir -p ../public/static-edge/sprites
-    - uses: actions/download-artifact@v2
-      with:
-        name: public
+      #    - uses: actions/download-artifact@v2
+      #with:
+      #  name: public
     - name: Process Data
       run: node process.js download sprites
     - uses: actions/upload-artifact@v2
