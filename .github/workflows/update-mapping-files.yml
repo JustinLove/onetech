@@ -1,0 +1,25 @@
+name: Update Mapping Files
+
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: process
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image:  wondible/onetech-prereqs
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: npm install
+    - name: Make Directories
+      run: mkdir -p ../public/static/sprites && mkdir -p ../public/static-edge/sprites
+    - name: Process Data
+      run: npm download sprites
