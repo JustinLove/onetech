@@ -23,4 +23,4 @@ jobs:
     - name: Make Directories
       run: mkdir -p ../public/static/sprites && mkdir -p ../public/static-edge/sprites
     - name: Process Data
-      run: npm process.js download sprites
+      run: node process.js download sprites
