@@ -20,8 +20,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Cache node modules
       uses: actions/cache@v2
-      env:
-        cache-name: cache-node-modules
       with:
         path: process/node_modules
         key: processor-node_modules-${{ hashFiles('**/package-lock.json') }}
@@ -32,15 +30,13 @@ jobs:
       run: npm install
     - name: Make Directories
       run: mkdir -p ../public/static/sprites && mkdir -p ../public/static-edge/sprites
-    - uses: actions/download-artifact@v2
+    - name: Cache static data
+      uses: actions/cache@v2
       with:
-        name: public
-    - name: Process Data
-      run: node process.js download sprites
-    - uses: actions/upload-artifact@v2
-      with:
-        name: public
         path: |
           public
           !sitemap.xml
           !**/*.png
+        key: processor-static
+    - name: Process Data
+      run: node process.js download sprites
