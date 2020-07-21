@@ -11,10 +11,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: keithweaver/aws-s3-github-action@master
+    - uses: jusbrasil/github-action-s3cmd@1.0.0
       with:
-        command: sync --exclude "*.png" --exclude "*/sitemap.xml"
-        source: public
-        destination: s3://${{ secrets.AWS_S3_BUCKET }}/public
-        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        args: sync public s3://${{ secrets.AWS_S3_BUCKET }}/
+      env:
+        ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
