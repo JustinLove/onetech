@@ -24,7 +24,8 @@ jobs:
         path: process/node_modules
         key: processor-node_modules-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          processor-node_modules-${{ hashFiles('**/package-lock.json') }}
+          ${{ runner.os }}-processor-node_modules-${{ hashFiles('**/package-lock.json') }}
+          ${{ runner.os }}-processor-node_modules-
           processor-node_modules-
     - name: Install dependencies
       run: npm install
@@ -35,8 +36,12 @@ jobs:
       with:
         path: |
           public
-          !sitemap.xml
-          !**/*.png
-        key: processor-static
+          !public/sitemap.xml
+          !public/*/sprites/*.png
+        key: processor-static-${{ github.run_number }}
+        restore-keys: |
+          processor-static-${{ github.run_number }}
+          processor-static-
+          processor-static
     - name: Process Data
       run: node process.js download sprites
