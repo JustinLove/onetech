@@ -15,6 +15,6 @@ jobs:
       with:
         command: sync --exclude "*.png" --exclude "*/sitemap.xml"
         source: public
-        destination: s3://${{ secret.AWS_S3_BUCKET }}/public
-        aws_access_key_id: ${{ secret.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secret.AWS_SECRET_ACCESS_KEY }}
+        destination: s3://${{ secrets.AWS_S3_BUCKET }}/public
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
