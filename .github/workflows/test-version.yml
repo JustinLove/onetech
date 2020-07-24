@@ -21,9 +21,9 @@ jobs:
         BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
         SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#    - name: load version number
-#      id: last-version
-#      run: echo ::set-output name=version::$(`cat lastVersionNumber.txt`)
+    - name: load version number
+      id: last-version
+      run: echo ::set-output name=version::$(`cat lastVersionNumber.txt`)
 #    - name: checkout data
 #      uses: actions/checkout@v2
 #        with:
