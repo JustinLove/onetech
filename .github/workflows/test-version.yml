@@ -26,14 +26,14 @@ jobs:
       run: echo ::set-output name=version::$(`cat lastVersionNumber.txt`)
     - name: checkout data
       uses: actions/checkout@v2
-        with:
-          repository: jasonrohrer/OneLifeData7
-          path: process/OneLifeData7
-#    - name: file report
-#      run: ls -R
-#    - name: get version number
-#      id: data-version
-#      run: echo ::set-output name=version::$(`git for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`)
-#    - name: report
-#      run: echo "${{ steps.last-version.version }} ${{ steps.data-version.version }}"
-#
+      with:
+        repository: jasonrohrer/OneLifeData7
+        path: process/OneLifeData7
+    - name: file report
+      run: ls -R
+    - name: get version number
+      id: data-version
+      run: echo ::set-output name=version::$(`git for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`)
+    - name: report
+      run: echo "${{ steps.last-version.version }} ${{ steps.data-version.version }}"
+
