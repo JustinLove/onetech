@@ -16,7 +16,7 @@ jobs:
     - name: checkout onetech
       uses: actions/checkout@v2
     - name: test download
-      run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --verbose --human-readable-sizes --stop-on-error get s3://$BUCKET/static/dataVersionNumber.txt lastVersionNumber.txt
+      run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --verbose --human-readable-sizes get s3://$BUCKET/static/dataVersionNumber.txt lastVersionNumber.txt
       env:
         BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
