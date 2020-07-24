@@ -24,7 +24,6 @@ jobs:
     - name: load version number
       id: last-version
       run: echo ::set-output name=version::$(`cat lastVersionNumber.txt`)
-
     - name: checkout data
       uses: actions/checkout@v2
         with:
@@ -36,5 +35,5 @@ jobs:
       id: data-version
       run: echo ::set-output name=version::$(`git for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`)
     - name: report
-      echo "${{ steps.last-version.version }} ${{ steps.data-version.version }}"
+      run: echo "${{ steps.last-version.version }} ${{ steps.data-version.version }}"
 
