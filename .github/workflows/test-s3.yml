@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: test download
-      run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --verbose --human-readable-sizes --stop-on-error --exclude=*.png sync s3://$BUCKET/static public/
+      run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --verbose --human-readable-sizes --stop-on-error --exclude=*.png --exclude=pretty-json sync s3://$BUCKET/static public/
       env:
         BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
