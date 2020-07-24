@@ -1,0 +1,40 @@
+name: Test Version
+
+on:
+  workflow_dispatch:
+    inputs:
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image:  wondible/onetech-prereqs:s3
+
+    steps:
+    - name: checkout onetech
+      uses: actions/checkout@v2
+    - name: test download
+      run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --verbose --human-readable-sizes --stop-on-error get s3://$BUCKET/static/dataVersionNumber.txt lastVersionNumber.txt
+      env:
+        BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: load version number
+      id: last-version
+      run: echo ::set-output name=version::$(`cat lastVersionNumber.txt`)
+
+    - name: checkout data
+      uses: actions/checkout@v2
+        with:
+          repository: jasonrohrer/OneLifeData7
+          path: process/OneLifeData7
+    - name: file report
+      run: ls -R
+    - name: get version number
+      id: data-version
+      run: echo ::set-output name=version::$(`git for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`)
+    - name: report
+      echo "${{ steps.last-version.version }} ${{ steps.data-version.version }}"
+
