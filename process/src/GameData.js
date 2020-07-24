@@ -130,7 +130,6 @@ class GameData {
     const versions = this.changeLog.versions.slice().reverse();
     for (let version of versions) {
       const path = `spawns/${version.id}.json`;
-      console.log(this.staticDir + "/" + path, fs.existsSync(this.staticDir + "/" + path))
       if (version.isUnreleased() || version.id > 0 && !fs.existsSync(this.staticDir + "/" + path)) {
         this.saveJSON(path, version.jsonData());
       }

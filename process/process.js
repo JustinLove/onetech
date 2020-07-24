@@ -4,7 +4,6 @@ if (!process.env.ONETECH_FOOD_BONUS) {
 
 const MainProcessor = require('./src/MainProcessor');
 
-console.log('dirname', __dirname)
 const processor = new MainProcessor(__dirname);
 
 processor.doDownload = process.argv.includes('download');
