@@ -35,5 +35,7 @@ jobs:
         SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: copy edge
       run: cp -R public/static public/static-edge
+    - name: file report
+      run: ls -R public
     - name: Process Data
       run: cd process && node process.js download sprites
