@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image:  wondible/onetech-prereqs
+      image:  wondible/onetech-prereqs:s3
 
     steps:
     - uses: actions/checkout@v2
