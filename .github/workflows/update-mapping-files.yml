@@ -35,7 +35,11 @@ jobs:
         SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: copy edge
       run: cp -R public/static/* public/static-edge/
-    - name: file report
-      run: ls -R public
     - name: Process Data
       run: cd process && node process.js download sprites
+    - name: Upload static
+      run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --verbose --human-readable-sizes --stop-on-error sync public/static s3://$BUCKET/
+      env:
+        BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
