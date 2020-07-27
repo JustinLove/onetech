@@ -24,6 +24,8 @@ jobs:
       with:
         repository: jasonrohrer/OneLifeData7
         path: process/OneLifeData7
+    - name: fetch tags
+      run: git -C process/OneLifeData7 fetch origin "+refs/tags/*:refs/tags/*"
     #- name: file report
     #run: ls -R
     - name: git test
