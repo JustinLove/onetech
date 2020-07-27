@@ -21,6 +21,8 @@ jobs:
         BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
         SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: read last version number
+      run: echo `cat lastVersionNumber.txt`
     - name: load version number
       id: last-version
       run: echo ::set-output name=version::$(`cat lastVersionNumber.txt`)
@@ -31,6 +33,8 @@ jobs:
         path: process/OneLifeData7
     - name: file report
       run: ls -R
+    - name: read data version number
+      run: echo `git for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
     - name: get version number
       id: data-version
       run: echo ::set-output name=version::$(`git for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`)
