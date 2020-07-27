@@ -14,8 +14,6 @@ jobs:
       dataversion: ${{ steps.dataversion.outputs.version }}
 
     steps:
-    - name: checkout onetech
-      uses: actions/checkout@v2
     - name: last version download
       run: curl https://onemap.wondible.com/static/dataVersionNumber.txt -o lastVersionNumber.txt
     - name: load version number
@@ -25,14 +23,14 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: jasonrohrer/OneLifeData7
-        path: process/OneLifeData7
+        path: OneLifeData7
     - name: fetch tags
-      run: git -C process/OneLifeData7 fetch origin "+refs/tags/*:refs/tags/*"
+      run: git -C OneLifeData7 fetch origin "+refs/tags/*:refs/tags/*"
     #- name: file report
     #run: ls -R
     - name: get version number
       id: dataversion
-      run: echo ::set-output name=version::`git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
+      run: echo ::set-output name=version::`git -C OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
     - name: report
       run: echo "${{ steps.lastversion.outputs.version }} ${{ steps.dataversion.outputs.version }}"
 
