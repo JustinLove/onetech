@@ -12,15 +12,8 @@ jobs:
     steps:
     - name: checkout onetech
       uses: actions/checkout@v2
-    - name: test download
+    - name: last version download
       run: curl https://onemap.wondible.com/static/dataVersionNumber.txt -o lastVersionNumber.txt
-    - name: read last version number
-      run: echo `cat lastVersionNumber.txt`
-    - name: capture test
-      id: capture
-      run: echo ::set-output name=foo::bar
-    - name: capture use
-      run: echo ${{ steps.capture.outputs.bar }}
     - name: load version number
       id: lastversion
       run: echo ::set-output name=version::`cat lastVersionNumber.txt`
@@ -33,13 +26,12 @@ jobs:
       run: git -C process/OneLifeData7 fetch origin "+refs/tags/*:refs/tags/*"
     #- name: file report
     #run: ls -R
-    - name: git test
-      run: pwd && git -C process/OneLifeData7 status && git -C process/OneLifeData7 tag
-    - name: read data version number
-      run: echo `git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
     - name: get version number
       id: dataversion
       run: echo ::set-output name=version::`git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
     - name: report
       run: echo "${{ steps.lastversion.outputs.version }} ${{ steps.dataversion.outputs.version }}"
+    - name: test
+      if: steps.lastversion.outputs.version == steps.dataversion.outputs.version
+      run: false
 
