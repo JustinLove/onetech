@@ -11,6 +11,8 @@ jobs:
 
     outputs:
       different: steps.lastversion.outputs.version != steps.dataversion.outputs.version
+      lastversion: steps.lastversion.outputs.version
+      dataversion: steps.dataversion.outputs.version
 
     steps:
     - name: checkout onetech
@@ -45,6 +47,10 @@ jobs:
       image:  wondible/onetech-prereqs:s3
 
     steps:
+    - name: inputs
+      run: echo ${{ needs.test.outputs.lastversion }} ${{ needs.test.outputs.dataversion }} ${{ needs.test.outputs.different }}
+    - name: trunc
+      run: false
     - uses: actions/checkout@v2
     - name: Cache node modules
       uses: actions/cache@v2
