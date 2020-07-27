@@ -31,7 +31,7 @@ jobs:
     - name: git test
       run: pwd && git -C process/OneLifeData7 status && git -C process/OneLifeData7 tag
     - name: read data version number
-      run: git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'
+      run: echo `git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
     - name: get version number
       id: data-version
       run: echo ::set-output name=version::`git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
