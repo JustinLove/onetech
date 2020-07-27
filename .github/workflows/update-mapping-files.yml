@@ -5,7 +5,38 @@ on:
     inputs:
 
 jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout onetech
+      uses: actions/checkout@v2
+    - name: last version download
+      run: curl https://onemap.wondible.com/static/dataVersionNumber.txt -o lastVersionNumber.txt
+    - name: load version number
+      id: lastversion
+      run: echo ::set-output name=version::`cat lastVersionNumber.txt`
+    - name: checkout data
+      uses: actions/checkout@v2
+      with:
+        repository: jasonrohrer/OneLifeData7
+        path: process/OneLifeData7
+    - name: fetch tags
+      run: git -C process/OneLifeData7 fetch origin "+refs/tags/*:refs/tags/*"
+    #- name: file report
+    #run: ls -R
+    - name: get version number
+      id: dataversion
+      run: echo ::set-output name=version::`git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
+    - name: report
+      run: echo "${{ steps.lastversion.outputs.version }} ${{ steps.dataversion.outputs.version }}"
+    - name: test
+      if: steps.lastversion.outputs.version == steps.dataversion.outputs.version
+      run: false
+
   build:
+    needs: test
 
     runs-on: ubuntu-latest
 
@@ -37,6 +68,8 @@ jobs:
       run: cp -R public/static/* public/static-edge/
     - name: Process Data
       run: cd process && node process.js download sprites
+    - name: record version number
+      run: git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//' > public/static/dataVersionNumber.txt
     - name: Upload static
       run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --verbose --human-readable-sizes --stop-on-error --exclude sprite_* sync public/static s3://$BUCKET/
       env:
