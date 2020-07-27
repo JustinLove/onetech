@@ -9,6 +9,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    outputs:
+      different: steps.lastversion.outputs.version != steps.dataversion.outputs.version
+
     steps:
     - name: checkout onetech
       uses: actions/checkout@v2
@@ -31,12 +34,10 @@ jobs:
       run: echo ::set-output name=version::`git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
     - name: report
       run: echo "${{ steps.lastversion.outputs.version }} ${{ steps.dataversion.outputs.version }}"
-    - name: test
-      if: steps.lastversion.outputs.version == steps.dataversion.outputs.version
-      run: false
 
   build:
     needs: test
+    if: needs.test.outputs.different
 
     runs-on: ubuntu-latest
 
