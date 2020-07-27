@@ -46,10 +46,6 @@ jobs:
       image:  wondible/onetech-prereqs:s3
 
     steps:
-    - name: inputs
-      run: echo ${{ needs.test.outputs.lastversion }} ${{ needs.test.outputs.dataversion }}
-    - name: trunc
-      run: false
     - uses: actions/checkout@v2
     - name: Cache node modules
       uses: actions/cache@v2
