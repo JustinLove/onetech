@@ -20,7 +20,7 @@ jobs:
       id: capture
       run: echo ::set-output name=foo::bar
     - name: capture use
-      run: echo ${{ steps.capture.bar }}
+      run: echo ${{ steps.capture.outputs.bar }}
     - name: load version number
       id: lastversion
       run: echo ::set-output name=version::`cat lastVersionNumber.txt`
@@ -41,5 +41,5 @@ jobs:
       id: dataversion
       run: echo ::set-output name=version::`git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
     - name: report
-      run: echo "${{ steps.lastversion.version }} ${{ steps.dataversion.version }}"
+      run: echo "${{ steps.lastversion.outputs.version }} ${{ steps.dataversion.outputs.version }}"
 
