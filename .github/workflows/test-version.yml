@@ -16,9 +16,14 @@ jobs:
       run: curl https://onemap.wondible.com/static/dataVersionNumber.txt -o lastVersionNumber.txt
     - name: read last version number
       run: echo `cat lastVersionNumber.txt`
+    - name: capture test
+      id: capture
+      run: echo ::set-output name=foo::bar
+    - name: capture use
+      run: echo ${{ steps.capture.bar }}
     - name: load version number
-      id: last-version
-      run: echo ::set-output name=version::$(`cat lastVersionNumber.txt`)
+      id: lastversion
+      run: echo ::set-output name=version::`cat lastVersionNumber.txt`
     - name: checkout data
       uses: actions/checkout@v2
       with:
@@ -33,8 +38,8 @@ jobs:
     - name: read data version number
       run: echo `git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
     - name: get version number
-      id: data-version
+      id: dataversion
       run: echo ::set-output name=version::`git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
     - name: report
-      run: echo "${{ steps.last-version.version }} ${{ steps.data-version.version }}"
+      run: echo "${{ steps.lastversion.version }} ${{ steps.dataversion.version }}"
 
