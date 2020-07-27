@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      different: steps.lastversion.outputs.version != steps.dataversion.outputs.version
-      lastversion: steps.lastversion.outputs.version
-      dataversion: steps.dataversion.outputs.version
+      different: ${{ steps.lastversion.outputs.version != steps.dataversion.outputs.version }}
+      lastversion: ${{ steps.lastversion.outputs.version }}
+      dataversion: ${{ steps.dataversion.outputs.version }}
 
     steps:
     - name: checkout onetech
