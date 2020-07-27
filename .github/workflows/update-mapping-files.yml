@@ -38,7 +38,7 @@ jobs:
     - name: Process Data
       run: cd process && node process.js download sprites
     - name: Upload static
-      run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --verbose --human-readable-sizes --stop-on-error sync public/static s3://$BUCKET/
+      run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --verbose --human-readable-sizes --stop-on-error --exclude sprite_* sync public/static s3://$BUCKET/
       env:
         BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
