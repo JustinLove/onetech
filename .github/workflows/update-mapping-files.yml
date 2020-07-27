@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      different: ${{ steps.lastversion.outputs.version != steps.dataversion.outputs.version }}
       lastversion: ${{ steps.lastversion.outputs.version }}
       dataversion: ${{ steps.dataversion.outputs.version }}
 
@@ -39,7 +38,7 @@ jobs:
 
   build:
     needs: test
-    if: needs.test.outputs.different
+    if: needs.test.outputs.lastversion != needs.test.outputs.dataversion
 
     runs-on: ubuntu-latest
 
@@ -48,7 +47,7 @@ jobs:
 
     steps:
     - name: inputs
-      run: echo ${{ needs.test.outputs.lastversion }} ${{ needs.test.outputs.dataversion }} ${{ needs.test.outputs.different }}
+      run: echo ${{ needs.test.outputs.lastversion }} ${{ needs.test.outputs.dataversion }}
     - name: trunc
       run: false
     - uses: actions/checkout@v2
