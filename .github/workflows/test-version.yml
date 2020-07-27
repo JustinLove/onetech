@@ -9,18 +9,11 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    container:
-      image:  wondible/onetech-prereqs:s3
-
     steps:
     - name: checkout onetech
       uses: actions/checkout@v2
     - name: test download
-      run: (s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --verbose --human-readable-sizes get s3://$BUCKET/static/dataVersionNumber.txt lastVersionNumber.txt || true)
-      env:
-        BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-        ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: curl https://onemap.wondible.com/static/dataVersionNumber.txt -o lastVersionNumber.txt
     - name: read last version number
       run: echo `cat lastVersionNumber.txt`
     - name: load version number
@@ -34,7 +27,7 @@ jobs:
     - name: file report
       run: ls -R
     - name: read data version number
-      run: echo `git for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`
+      run: git for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'
     - name: get version number
       id: data-version
       run: echo ::set-output name=version::$(`git for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//'`)
