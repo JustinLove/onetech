@@ -3,6 +3,9 @@ name: Update Mapping Files
 on:
   workflow_dispatch:
     inputs:
+  schedule:
+    #         m h   d m w
+    - cron: '33 */4 * * *'
 
 jobs:
   test:
