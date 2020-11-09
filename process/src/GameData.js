@@ -193,7 +193,7 @@ class GameData {
     var objects = _.sortBy(this.objects, o => o.sortWeight()).filter(o => o.isVisible());
     return {
       ids: objects.map(o => o.id),
-      //names: objects.map(o => o.name),
+      names: objects.map(o => o.name),
       bounds: objects.map(o => o.bounds),
       floorRemovals: _.flatten(objects.map(o => o.floorRemovalTransitions())).map(t => t.jsonData()),
       //difficulties: objects.map(o => o.difficulty()),
