@@ -12,6 +12,7 @@ const Biome = require('./Biome');
 const DepthCalculator = require('./DepthCalculator');
 const SpriteProcessor = process.argv.includes('sprites') && require('./SpriteProcessor');
 const ObjectFilters = require('./ObjectFilters');
+const NotableObjects = require('./NotableObjects');
 const ObjectBadges = require('./ObjectBadges');
 const SitemapGenerator = require('./SitemapGenerator');
 
@@ -199,6 +200,7 @@ class GameData {
       //difficulties: objects.map(o => o.difficulty()),
       //filters: ObjectFilters.jsonData(objects),
       //badges: ObjectBadges.jsonData(objects),
+      notable: NotableObjects.jsonData(objects),
       date: Date.now(),
       //versions: this.changeLog.validVersions().map(v => v.id),
       //biomes: this.biomes.map(b => b.jsonData()),

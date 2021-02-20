@@ -47,11 +47,16 @@ class GameObject {
       this.data.gridPlacementPhaseX = null;
       this.data.gridPlacementPhaseY = null;
       this.data.randPlacement = null;
+      this.data.gridSpacingX = null;
+      this.data.gridSpacingY = null;
+      this.data.limitX = null;
+      this.data.limitY = null;
       var parts = name.split(/# ?/);
       var extra = parts[1];
       if (!extra) return;
       var grid = extra.match(/gridPlacement(\d+)(,(\d+))?(,p(\d+))?(,p(\d+))?/);
       var rand = extra.match(/randPlacement(\d+)/);
+      var tapout = extra.match(/\+tapoutTrigger,(\d+),(\d+),(\d+),(\d+)/);
       if (grid) {
         this.data.gridPlacement = parseInt(grid[1])
         this.data.gridPlacementY = grid[3] && parseInt(grid[3])
@@ -60,6 +65,12 @@ class GameObject {
       }
       if (rand) {
         this.data.randPlacement = parseInt(rand[1])
+      }
+      if (tapout) {
+        this.data.gridSpacingX = tapout[1] && parseInt(tapout[1])
+        this.data.gridSpacingY = tapout[2] && parseInt(tapout[2])
+        this.data.LimitX = tapout[3] && parseInt(tapout[3])
+        this.data.LimitY = tapout[4] && parseInt(tapout[4])
       }
     }
   }
@@ -280,6 +291,22 @@ class GameObject {
     return this.transitionsAway.filter(function(transition) {
       return !transition.newTarget.isFloor();
     })
+  }
+
+  isMonumentCall() {
+    return this.data.name.includes("monumentCall");
+  }
+
+  isMonumentStep() {
+    return this.data.name.includes("monumentStep");
+  }
+
+  isFamUse() {
+    return this.data.name.includes("famUse");
+  }
+
+  isLargeTapout() {
+    return this.data.gridSpacingX > 5;
   }
 
   isTool() {
