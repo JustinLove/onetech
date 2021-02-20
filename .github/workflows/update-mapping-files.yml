@@ -74,7 +74,13 @@ jobs:
     - name: record version number
       run: git -C process/OneLifeData7 for-each-ref --sort=-creatordate --format '%(refname:short)' --count=1 refs/tags/OneLife_v* | sed -e 's/OneLife_v//' > public/static/dataVersionNumber.txt
     - name: Upload static
-      run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --human-readable-sizes --stop-on-error --exclude sprite_* sync public/static s3://$BUCKET/
+      run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --human-readable-sizes --stop-on-error --add-header="Cache-Control:max-age=604800" --exclude ../public/static/objects.json --exclude sprite_* sync public/static s3://$BUCKET/
+      env:
+        BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: Upload static objects.json
+      run: s3cmd --no-check-certificate --access_key=$ACCESS_KEY --secret_key=$SECRET_KEY --human-readable-sizes --stop-on-error --add-header="Cache-Control:max-age=86400" sync public/static/objects.json s3://$BUCKET/static/
       env:
         BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
